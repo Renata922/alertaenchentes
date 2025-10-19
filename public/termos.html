@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termos de Privacidade — Alerta de Enchentes</title>
+  <style>
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      margin: 0; padding: 0;
+      line-height: 1.6;
+      background: #f6f7f9;
+      color: #222;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    h1 { margin-top: 0; color: #0d6efd; }
+    h2 { margin-top: 32px; }
+    a { color: #0d6efd; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .voltar {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 10px 16px;
+      background: #0d6efd;
+      color: #fff;
+      border-radius: 6px;
+    }
+    .contato {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+      color: #444;
+    }
+    [vw], [vw-access-button], [vw-plugin-wrapper] {
+      position: fixed !important;
+      z-index: 2147483647 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Termos de Privacidade</h1>
+    <p>O sistema <strong>Alerta de Enchentes</strong> foi desenvolvido para coletar e utilizar informações de usuários de forma responsável, com o objetivo exclusivo de monitorar e enviar alertas sobre riscos de enchentes.</p>
+
+    <h2>1. Dados coletados</h2>
+    <p>Durante o cadastro, coletamos seu <strong>nome</strong>, <strong>celular</strong> e <strong>e-mail</strong>. Esses dados são utilizados apenas para autenticação e envio de alertas.</p>
+
+    <h2>2. Uso das informações</h2>
+    <ul>
+      <li>Envio de mensagens SMS e e-mails com alertas oficiais ou relatos.</li>
+      <li>Consulta de informações climáticas para prevenção de enchentes.</li>
+      <li>Comunicação direta com os usuários cadastrados.</li>
+    </ul>
+
+    <h2>3. Compartilhamento</h2>
+    <p>Os dados não serão vendidos ou compartilhados com terceiros, salvo por obrigação legal.</p>
+
+    <h2>4. Segurança</h2>
+    <p>As informações são armazenadas em banco de dados protegido. As senhas são criptografadas com <em>hash seguro</em>.</p>
+
+    <h2>5. Direitos do usuário</h2>
+    <p>Você pode solicitar a exclusão ou atualização dos seus dados a qualquer momento através da opção de descadastro.</p>
+
+    <p>Ao criar uma conta, você declara estar de acordo com estes Termos de Privacidade.</p>
+
+    <div class="contato">
+      <p><strong>Contato:</strong> Caso tenha dúvidas sobre este documento, entre em contato pelo e-mail 
+        <a href="mailto:enchenteisabel@gmail.com">enchenteisabel@gmail.com</a>.
+      </p>
+    </div>
+
+    <a href="/cadastro.html" class="voltar">Voltar ao cadastro</a>
+  </div>
+
+  <!-- VLibras-->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <script src="reader.js" defer></script>
+
+</body>
+</html>

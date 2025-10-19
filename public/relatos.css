@@ -1,0 +1,346 @@
+/* variáveis*/
+:root {
+  --primary: #667eea;
+  --primary-dark: #4858a0;
+  --text: #2c3e50;
+  --text-light: #7f8c8d;
+  --background: #dbe9f3;
+  --white: #ffffff;
+  --border: #dfe6e9;
+  --error: #e74c3c;
+  --success: #2ecc71;
+  --warning: #f39c12;
+}
+
+/* estilos*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  background-color: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+/* cabeçalhos*/
+h1 {
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  position: relative;
+  padding-bottom: 10px;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: var(--primary);
+  margin: 10px auto 0;
+}
+
+/*formulario*/
+#formRelato {
+  margin-bottom: 40px;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+legend {
+  padding: 0 10px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin: 15px 0 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.required {
+  color: var(--error);
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 0.3rem;
+}
+
+select, textarea, input[type="date"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.3s;
+  background-color: var(--white);
+}
+
+select:focus, 
+textarea:focus, 
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+textarea {
+  min-height: 200px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+input[type="date"] {
+  width: 200px;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 35px;
+}
+
+/* botões principais*/
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit-btn .loader {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: var(--white);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* TABELA */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 30px;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(245, 247, 250, 0.5);
+}
+
+tr:hover {
+  background-color: rgba(52, 152, 219, 0.05);
+}
+
+/* FEEDBACK */
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.loading-state, .error-state {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-light);
+}
+
+.error-state {
+  color: var(--error);
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 6px;
+}
+
+.error-alert {
+  background-color: #fee;
+  border: 1px solid var(--error);
+  border-radius: 6px;
+  padding: 15px;
+  margin: 10px 0;
+  color: var(--error);
+}
+
+.error-alert button {
+  background: var(--error);
+  margin-top: 10px;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* reponsividade*/
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    border-radius: 0;
+  }
+
+  input[type="date"] {
+    width: 100%;
+  }
+
+  th, td {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .back-button {
+    padding: 10px 20px;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  textarea {
+    min-height: 150px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  fieldset {
+    padding: 15px;
+  }
+
+  .back-button {
+    padding: 8px 16px;
+    min-width: 140px;
+    font-size: 0.85rem;
+  }
+}
+/* Estilo para o mapa */
+#map {
+  height: 400px;  /* Definindo uma altura padrão para o mapa */
+  width: 100%;    /* O mapa ocupará toda a largura disponível */
+  border: 2px solid var(--border); /* Borda para o mapa */
+  border-radius: 6px;  /* Deixa o mapa com bordas arredondadas */
+  margin-top: 30px; /* Espaço acima do mapa */
+}
+/* utilitário p/ conteúdo só pra leitores de tela */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
+}
+/* foco visível */
+:focus-visible {
+  outline: 3px solid rgba(102, 126, 234, 0.6);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* mobile*/
+@media (max-width: 480px) {
+  #map { height: 300px; }
+}
+
+/* imagens responsivas em qualquer conteúdo */
+img { max-width: 100%; height: auto; }
+
+/* relatos muito longos não estourarem a tabela */
+table { table-layout: fixed; }
+td:nth-child(2) { word-wrap: break-word; overflow-wrap: anywhere; }
+
+/* reduz animações para quem prefere */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

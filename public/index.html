@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Previsão do Tempo - Santa Isabel</title>
+
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- SweetAlert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+    .boas-vindas { text-align: center; }
+    .botoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+    }
+    .botoes button {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .clima img { max-height: 64px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="boas-vindas">
+      <h1>🌧️ Bem-vindo ao Sistema de Monitoramento de Enchentes de Santa Isabel!</h1>
+      <p>Nosso objetivo é manter você informado e seguro. Fique atento aos alertas!</p>
+    </div>
+
+    <div class="botoes">
+      <button id="btn-descadastro" type="button">Descadastrar</button>
+      <button type="button" onclick="window.location.href='./relatos.html'">Relato de enchentes e áreas de risco</button>
+      <button type="button" onclick="window.location.href='./inform.html'">Enchentes em Santa Isabel</button>
+      <button type="button" onclick="window.location.href='./sobre.html'">Sobre</button>
+      <button id="btn-logout" type="button">Sair</button>
+    </div>
+
+    <!-- Clima -->
+    <div class="clima">
+      <h1>Santa Isabel</h1>
+      <p><strong>Temperatura Atual:</strong> <span id="temperatura">Carregando...</span></p>
+      <p><strong>Descrição:</strong> <span id="descricao">Carregando...</span></p>
+      <p><strong>Umidade:</strong> <span id="umidade">--</span></p>
+      <p><strong>Vento:</strong> <span id="vento">--</span></p>
+      <p><strong>Sensação térmica:</strong> <span id="sensacao">--</span></p>
+      <img id="icone-clima" src="" alt="Ícone do clima">
+    </div>
+  </div>
+
+  <!-- VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+
+  <script src="./script.js" defer></script>
+  <script src="./reader.js" defer></script>
+</body>
+</html>

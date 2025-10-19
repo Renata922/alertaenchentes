@@ -1,0 +1,251 @@
+/* variáveis */
+:root {
+  --primary-blue: #667eea;
+  --dark-blue: #4858a0;
+  --light-bg: #f8faff;
+  --text-dark: #2a2a2a;
+  --text-medium: #4a4a4a;
+  --text-light: #f0f8ff;
+  --accent-color: #ff6b00;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* geral */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* cabeçalho */
+header {
+  background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+  color: var(--text-light);
+  text-align: center;
+  padding: 2.5rem 1rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  transform: rotate(30deg);
+}
+header h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.5px;
+}
+
+/* seções */
+section {
+  padding: 2rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+section:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* texto */
+h2 {
+  font-size: 2.2rem;
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 60px; height: 4px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+/* ajuste de contraste: títulos de nível 3 padrão escuros */
+h3 {
+  font-size: 1.8rem;
+  color: var(--text-dark);
+  margin: 1.5rem 0 1rem;
+}
+p {
+  font-size: 1.1rem;
+  color: var(--text-medium);
+  margin-bottom: 1.2rem;
+  line-height: 1.8;
+}
+
+/* ocorrências */
+.ocorrencias article {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-left: 4px solid var(--primary-blue);
+  background: rgba(0, 102, 255, 0.03);
+  border-radius: 0 8px 8px 0;
+  transition: var(--transition);
+}
+.ocorrencias article:hover {
+  transform: translateX(5px);
+  background: rgba(0, 102, 255, 0.08);
+}
+.ocorrencias h3 { color: var(--primary-blue); }
+.ocorrencias a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  position: relative;
+}
+.ocorrencias a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+.ocorrencias a:hover::after { width: 100%; }
+
+/* imagens */
+.imagens ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+.imagens img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  filter: brightness(0.95);
+}
+.imagens img:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1);
+  z-index: 1;
+}
+
+/* medidas preventivas */
+.medidas h3 { color: var(--accent-color); }
+.medidas p { position: relative; padding-left: 1.5rem; }
+.medidas p::before {
+  content: '•';
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0; top: -2px;
+}
+
+/* rodapé */
+footer {
+  background: linear-gradient(135deg, var(--dark-blue), var(--dark-blue));
+  color: var(--text-light);
+  padding: 3rem 1rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+footer h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+footer h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 80px; height: 3px;
+  background: var(--accent-color);
+}
+footer ul {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  list-style: none;
+}
+footer a {
+  color: var(--light-bg);
+  text-decoration: none;
+  transition: var(--transition);
+  display: inline-block;
+}
+footer a:hover {
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+/* botão voltar */
+.botao-voltar { text-align: center; margin: 3rem auto; }
+.botao-voltar button {
+  background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+  color: #fff; border: none;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem; font-weight: 600;
+  border-radius: 50px; cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px rgba(0, 68, 204, 0.2);
+  position: relative; overflow: hidden;
+}
+.botao-voltar button::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 200%; height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: var(--transition);
+}
+.botao-voltar button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 68, 204, 0.3);
+}
+.botao-voltar button:hover::after { left: 100%; }
+
+/* foco visível */
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* respeita redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* responsividade */
+@media (max-width: 768px) {
+  header h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  section { padding: 1.5rem 1rem; margin: 1.5rem 1rem; }
+  .imagens ul { grid-template-columns: 1fr; }
+}

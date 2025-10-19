@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatos de Áreas de Risco - Santa Isabel</title>
+  
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preload" href="./relatos.css" as="style">
+  <link rel="stylesheet" href="./relatos.css">
+  
+  <!-- SweetAlert2 (opcional; relatos.js usa se existir) -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" crossorigin="anonymous"></script>
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  </noscript>
+
+  <!-- Leaflet (mapa) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <style>
+    [vw], [vw-access-button], [vw-plugin-wrapper] {
+      position: fixed !important;
+      z-index: 2147483647 !important;
+    }
+    
+    #map { height: 400px; width: 100%; }
+  </style>
+</head>
+<body class="protegida">
+  <!-- Guard de autenticação -->
+  <script>
+    fetch('/auth/me', { credentials: 'include' })
+      .then(r => r.json())
+      .then(d => { if (!d.authenticated) location.href = '/login.html'; })
+      .catch(() => location.href = '/login.html');
+  </script>
+
+  <div class="container">
+    <!-- Cabeçalho -->
+    <header>
+      <h1 aria-label="Relatar áreas de risco em Santa Isabel">📢 Relatar Áreas de Risco</h1>
+    </header>
+    
+    <!-- Formulário -->
+    <form id="formRelato" aria-label="Formulário de relatos" novalidate>
+      <fieldset>
+        <legend>Informações do Relato</legend>
+        
+        <div class="form-group">
+          <label for="bairro">Bairro: <span class="required">*</span></label>
+          <select id="bairro" required aria-required="true">
+            <option value="" disabled selected>Selecione seu bairro...</option>
+
+            <option value="Aralú">Aralú</option>
+            <option value="Cachoeira">Cachoeira</option>
+            <option value="Centro">Centro</option>
+            <option value="Chácara Reunidas">Chácara Reunidas</option>
+            <option value="Cruzeiro">Cruzeiro</option>
+            <option value="Estância Cybele Soraya">Estância Cybele Soraya</option>
+            <option value="Estância São José">Estância São José</option>
+            <option value="Estância Zélia">Estância Zélia</option>
+            <option value="Jaguari">Jaguari</option>
+            <option value="Jardim Cristina">Jardim Cristina</option>
+            <option value="Jardim das Acácias">Jardim das Acácias</option>
+            <option value="Jardim de Portugal">Jardim de Portugal</option>
+            <option value="Jardim Eldorado">Jardim Eldorado</option>
+            <option value="Jardim Monte Serrat">Jardim Monte Serrat</option>
+            <option value="Jardim Novo Éden">Jardim Novo Éden</option>
+            <option value="Jardim São Pedro">Jardim São Pedro</option>
+            <option value="Jardim Vista Alegre">Jardim Vista Alegre</option>
+            <option value="Jardim Vista Verde">Jardim Vista Verde</option>
+            <option value="Km 55">Km 55</option>
+            <option value="Monte Negro">Monte Negro</option>
+            <option value="Nova Santa Isabel">Nova Santa Isabel</option>
+            <option value="Ouro Fino">Ouro Fino</option>
+            <option value="Parque Santa Tereza">Parque Santa Tereza</option>
+            <option value="Parque São Benedito">Parque São Benedito</option>
+            <option value="Pouso Alegre">Pouso Alegre</option>
+            <option value="Recanto Alpina">Recanto Alpina</option>
+            <option value="Recanto Feliz">Recanto Feliz</option>
+            <option value="Recanto Imperial">Recanto Imperial</option>
+            <option value="Recento No Céu">Recento No Céu</option>
+            <option value="Reserva Ibirapitanga">Reserva Ibirapitanga</option>
+            <option value="Treze de Maio">Treze de Maio</option>
+            <option value="Vila Guilherme">Vila Guilherme</option>
+            <option value="Vila Gumercindo">Vila Gumercindo</option>
+            <option value="Vila Industrial">Vila Industrial</option>
+            <option value="Vila Orlanda">Vila Orlanda</option>
+            <option value="Vila São Benedito">Vila São Benedito</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="relato">Relato: <span class="required">*</span></label>
+          <textarea 
+            id="relato" 
+            rows="8" 
+            required 
+            aria-required="true"
+            placeholder="Descreva detalhadamente o problema (mínimo 10 caracteres)..."
+            minlength="10"
+            spellcheck="true"
+          ></textarea>
+          <div class="hint">Mínimo 10 caracteres</div>
+        </div>
+
+        <div class="form-group">
+          <label for="data">Data: <span class="required">*</span></label>
+          <input 
+            type="date" 
+            id="data" 
+            required
+            aria-required="true"
+            aria-label="Data do relato"
+          >
+          <div class="hint">Formato: DD/MM/AAAA</div>
+        </div>
+
+        <button type="submit" aria-label="Enviar relato" class="submit-btn">
+          <span class="btn-text">Enviar Relato</span>
+          <span class="loader" hidden></span>
+        </button>
+      </fieldset>
+    </form>
+
+    <!-- Seção de relatos -->
+    <section aria-labelledby="relatos-heading">
+      <h2 id="relatos-heading">Últimos Relatos</h2>
+      <div class="table-responsive">
+        <table id="tabelaRelatos" aria-describedby="tabela-desc">
+          <caption id="tabela-desc" class="sr-only">Lista cronológica dos relatos</caption>
+          <thead>
+            <tr>
+              <th scope="col" width="20%">Bairro</th>
+              <th scope="col" width="60%">Relato</th>
+              <th scope="col" width="20%">Data</th>
+            </tr>
+          </thead>
+          <tbody aria-live="polite">
+            <tr>
+              <td colspan="3" class="empty-state" aria-busy="true">
+                <div class="loading-spinner"></div>
+                <span>Carregando relatos...</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Seção do mapa -->
+    <section aria-labelledby="mapa-heading">
+      <h2 id="mapa-heading">Visualização no Mapa</h2>
+      <div id="map"></div>
+    </section>
+
+    <!-- Botão de Voltar -->
+    <div class="botao-voltar">
+      <button onclick="window.location.href='index.html';">Voltar ao início</button>
+    </div>
+  </div>
+
+  <!-- VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+  <!-- Limita a data ao dia de hoje -->
+  <script>
+    (function setMaxDateToday(){
+      const input = document.getElementById('data');
+      if (!input) return;
+      const tzOffset = (new Date()).getTimezoneOffset() * 60000;
+      const today = new Date(Date.now() - tzOffset).toISOString().slice(0,10);
+      input.max = today;
+    })();
+  </script>
+
+  <!-- Scripts do projeto  -->
+  <script src="reader.js" defer></script>
+  <script src="relatos.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Criar conta — Alerta de Enchentes</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,-apple-system,sans-serif}
+    body{
+      background:
+        linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+        url('https://images.unsplash.com/photo-1438449805896-28a666819a20?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
+      background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;min-height:100vh;
+    }
+    .page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .wrap{width:100%;max-width:440px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-radius:20px;padding:40px 32px;
+      box-shadow:0 20px 40px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.3);animation:slideUp .6s ease-out}
+    @keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    h1{font-size:28px;font-weight:700;color:#1a1a1a;margin-bottom:8px;text-align:center}
+    .sub{color:#666;text-align:center;margin-bottom:32px;font-size:16px;line-height:1.5}
+    form{display:grid;gap:20px}
+    .input-group{display:flex;flex-direction:column;gap:6px}
+    label{font-size:14px;font-weight:600;color:#374151;margin-left:4px}
+    input{padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;font-size:16px;background:#fff;transition:.3s;outline:none}
+    input:focus{border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1);transform:translateY(-1px)}
+    input::placeholder{color:#9ca3af}
+    .linha-termos{display:flex;gap:12px;align-items:flex-start;padding:16px;background:#f8fafc;border-radius:12px;margin:8px 0}
+    .linha-termos input{margin-top:2px;width:18px;height:18px;accent-color:#667eea}
+    .linha-termos span{font-size:14px;line-height:1.5;color:#4b5563}
+    .linha-termos a{color:#667eea;text-decoration:none;font-weight:600}
+    .linha-termos a:hover{text-decoration:underline}
+    button{padding:16px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:12px;font-size:16px;
+      font-weight:600;cursor:pointer;transition:.3s;margin-top:8px}
+    button:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px rgba(102,126,234,.3)}
+    button:active:not(:disabled){transform:translateY(0)}
+    button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .msg{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:500;text-align:center;margin-top:16px}
+    .msg.err{background:#fee2e2;color:#dc2626;border:1px solid #fecaca}
+    .msg.ok{background:#d1fae5;color:#065f46;border:1px solid #a7f3d0}
+    .links{text-align:center;margin-top:24px;padding-top:24px;border-top:1px solid #e5e7eb;font-size:15px;color:#6b7280}
+    .links a{color:#667eea;text-decoration:none;font-weight:600;margin-left:4px}
+    .links a:hover{text-decoration:underline}
+    .loading{display:inline-block;width:20px;height:20px;border:3px solid #fff;border-radius:50%;border-top-color:transparent;
+      animation:spin 1s ease-in-out infinite;margin-right:8px;vertical-align:middle}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media (max-width:480px){.wrap{padding:32px 24px;margin:20px}h1{font-size:24px}input,button{padding:12px 14px}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="wrap">
+      <h1>Criar conta</h1>
+      <p class="sub">Registre-se para acessar o sistema de alertas</p>
+
+      <form id="formCadastro" autocomplete="on" novalidate>
+        <div class="input-group">
+          <label for="nome">Nome completo</label>
+          <input id="nome" name="nome" type="text" required minlength="3" autocomplete="name"
+                 placeholder="Digite seu nome completo" />
+        </div>
+
+        <div class="input-group">
+          <label for="celular">Celular</label>
+          <input id="celular" name="celular" type="tel" inputmode="numeric" pattern="[0-9]{11}" maxlength="11"
+                 placeholder="11999999999" required title="Digite o DDD + número (11 dígitos)" autocomplete="tel-national"/>
+        </div>
+
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" required placeholder="seu@email.com" autocomplete="email"/>
+        </div>
+
+        <div class="input-group">
+          <label for="senha">Senha</label>
+          <input id="senha" name="senha" type="password" minlength="6" required placeholder="Mínimo 6 caracteres" autocomplete="new-password"/>
+        </div>
+
+        <label class="linha-termos">
+          <input id="termos" type="checkbox" required />
+          <span>Li e aceito os <a href="/termos.html" target="_blank" rel="noopener">Termos de Privacidade</a></span>
+        </label>
+
+        <button id="btnCadastrar" type="submit"><span id="btnText">Criar conta</span></button>
+        <div id="mensagem" class="msg" aria-live="polite"></div>
+      </form>
+
+      <div class="links">Já tem conta? <a href="/login.html">Entrar</a></div>
+    </div>
+  </div>
+
+  <!-- VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+
+  <script>
+    const form = document.getElementById('formCadastro');
+    const btn = document.getElementById('btnCadastrar');
+    const btnText = document.getElementById('btnText');
+    const msg = document.getElementById('mensagem');
+
+    // máscara simples
+    const celularInput = document.getElementById('celular');
+    celularInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      e.target.value = v;
+    });
+
+    let sending = false;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (sending) return;
+      sending = true;
+
+      msg.textContent = '';
+      msg.className = 'msg';
+
+      const payload = {
+        nome: document.getElementById('nome').value.trim(),
+        celular: document.getElementById('celular').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        senha: document.getElementById('senha').value,
+        termos_aceitos: document.getElementById('termos').checked ? 1 : 0
+      };
+
+      // validações rápidas no cliente
+      if (!payload.termos_aceitos)       return done('Você precisa aceitar os Termos de Privacidade.');
+      if (!/^[0-9]{11}$/.test(payload.celular)) return done('Celular deve ter 11 dígitos (ex: 11999999999).');
+      if (payload.senha.length < 6)      return done('A senha deve ter no mínimo 6 caracteres.');
+
+      setLoading(true);
+      try {
+        const r = await fetch('/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload),
+          credentials: 'include'
+        });
+
+        // garante JSON
+        const ct = r.headers.get('content-type') || '';
+        const data = ct.includes('application/json') ? await r.json() : { mensagem: await r.text() };
+
+        if (r.ok && data.sucesso) {
+          show('ok', data.mensagem || 'Cadastro realizado! Redirecionando...');
+          setTimeout(() => location.href = '/login.html', 1500);
+        } else {
+          show('err', data.mensagem || 'Não foi possível cadastrar. Tente novamente.');
+        }
+      } catch {
+        show('err', 'Erro de rede. Verifique sua conexão e tente novamente.');
+      } finally {
+        setLoading(false);
+        sending = false;
+      }
+    });
+
+    function show(type, message){ msg.textContent = message; msg.className = 'msg ' + type; }
+    function done(message){ sending = false; show('err', message); }
+    function setLoading(loading){
+      btn.disabled = loading;
+      btnText.innerHTML = loading ? '<div class="loading"></div>Processando...' : 'Criar conta';
+    }
+
+    document.querySelectorAll('input').forEach(el=>{
+      el.addEventListener('focus',()=> el.parentElement.style.transform='translateY(-2px)');
+      el.addEventListener('blur', ()=> el.parentElement.style.transform='translateY(0)');
+    });
+  </script>
+
+  <script src="./reader.js" defer></script>
+</body>
+</html>
