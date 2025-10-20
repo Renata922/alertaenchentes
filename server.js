@@ -43,14 +43,15 @@ const CLICKSEND_AUTH = {
 
 // E-mail (SMTP)
 const mailTransporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-  port: Number(process.env.EMAIL_PORT || 465),
-  secure: true,
-  auth: {
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,      
+  requireTLS: true,   
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
-  }
-});
+    
+  },);
+
 
 async function enviarEmail({ to, subject, html, text }) {
   const from = process.env.EMAIL_FROM || process.env.EMAIL_USER;
