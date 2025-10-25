@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre - Sistema de Alerta de Enchentes</title>
+  <link rel="stylesheet" href="sobre.css" />
+
+  <style>
+    [vw], [vw-access-button], [vw-plugin-wrapper] {
+      position: fixed !important;
+      z-index: 2147483647 !important;
+    }
+  </style>
+</head>
+
+<body class="protegida">
+  <!-- Guard de autenticação -->
+  <script>
+    fetch('/auth/me', { credentials: 'include' })
+      .then(r => r.json())
+      .then(d => { if (!d.authenticated) location.href = '/login.html'; })
+      .catch(() => location.href = '/login.html');
+  </script>
+
+  <header class="boas-vindas">
+    <h2>Sobre o Sistema de Alerta de Enchentes de Santa Isabel</h2>
+  </header>
+
+  <main class="conteudo" aria-labelledby="objetivo-heading">
+    <h3 id="objetivo-heading">Objetivo</h3>
+    <p>Este sistema tem como objetivo fornecer alertas em tempo real sobre enchentes em Santa Isabel, utilizando dados climáticos de fontes confiáveis.</p>
+
+    <h3>Funcionamento</h3>
+    <p>O sistema monitora as condições climáticas da cidade e envia alertas sobre a possibilidade de enchentes. Também possui um formulário para relatos de enchentes e áreas de risco,
+      ajudando a prevenir danos e proteger a população.</p>
+
+    <h3>Equipe de Desenvolvimento</h3>
+    <p>Este projeto foi desenvolvido por estudantes da Universidade Virtual do Estado de São Paulo (Univesp).</p>
+
+    <div class="botoes">
+      <button onclick="window.location.href='index.html'">Voltar para o Início</button>
+    </div>
+  </main>
+
+  <!-- VLibras-->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+  <!-- Leitor  -->
+  <script src="reader.js" defer></script>
+</body>
+</html>
